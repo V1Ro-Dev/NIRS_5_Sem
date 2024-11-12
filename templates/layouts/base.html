@@ -1,14 +1,18 @@
+{% load static %}
+
 <!doctype html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Отель сказка 2 звезды</title>
-    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <title>Four Seasons</title>
+    <link rel="stylesheet" href="{% static '/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static '/css/main.css' %}">
 </head>
 
 <body>
+    <!-- Navbar -->
     <nav class="navbar bg-body-tertiary fixed-top">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
@@ -42,13 +46,55 @@
             </div>
             <div class="d-flex gap-1">
                 <div>
-                      <a href="#" >Log in</a>
-                      <a href="#" class="ms-4">Register</a>
+                    <a href="#">Log in</a>
+                    <a href="#" class="ms-4">Register</a>
                 </div>
             </div>
         </div>
     </nav>
-    <script src="../static/js/bootstrap.min.js"></script>
+
+    {% block content %}
+
+    {% endblock %}
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <!-- Contact Information -->
+                <div class="col-md-4 mb-3">
+                    <h5>Контакты</h5>
+                    <p>Адрес: ул. Примерная, 123, Москва</p>
+                    <p>Телефон: +7 (495) 123-45-67</p>
+                    <p>Email: info@fourseasons.ru</p>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="col-md-4 mb-3">
+                    <h5>Полезные ссылки</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-light">О нас</a></li>
+                        <li><a href="#" class="text-light">Наши услуги</a></li>
+                        <li><a href="#" class="text-light">Политика конфиденциальности</a></li>
+                        <li><a href="#" class="text-light">Правила и условия</a></li>
+                    </ul>
+                </div>
+
+                <!-- Social Media -->
+                <div class="col-md-4 mb-3">
+                    <h5>Мы в соцсетях</h5>
+                    <a href="#" class="text-light me-3"><i class="bi bi-facebook"></i> Facebook</a>
+                    <a href="#" class="text-light me-3"><i class="bi bi-instagram"></i> Instagram</a>
+                    <a href="#" class="text-light"><i class="bi bi-twitter"></i> Twitter</a>
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                <p>&copy; 2024 Four Seasons. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
 </body>
 
 </html>
