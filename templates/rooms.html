@@ -1,0 +1,70 @@
+{% extends 'layouts/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="container my-5">
+    <h1 class="text-center mb-4">Номера и цены</h1>
+
+    <div class="row row-cols-1 g-4">
+        <!-- Эконом -->
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <img src="econom-room.jpg" class="card-img-top" alt="Эконом">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="{% url 'room' 'econom' %}">Эконом</a>
+                    </h5>
+                    <p class="card-text">Уютный номер с базовыми удобствами. Подходит для краткосрочного пребывания.</p>
+                    <ul>
+                        <li>Площадь: 15 м²</li>
+                        <li>1 кровать</li>
+                        <li>Телевизор, кондиционер</li>
+                    </ul>
+                    <p class="card-text"><strong>Цена: 3000 ₽/ночь</strong></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Люкс -->
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <img src="lux-room.jpg" class="card-img-top" alt="Люкс">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="{% url 'room' 'lux' %}">Люкс</a>
+                    </h5>
+                    <p class="card-text">Просторный номер с дополнительными удобствами и улучшенным интерьером.</p>
+                    <ul>
+                        <li>Площадь: 30 м²</li>
+                        <li>Двуспальная кровать</li>
+                        <li>Мини-бар, джакузи</li>
+                    </ul>
+                    <p class="card-text"><strong>Цена: 6000 ₽/ночь</strong></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Президентский -->
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <img src="presidential-room.jpg" class="card-img-top" alt="Президентский">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="{% url 'room' 'presidential' %}">Президентский</a>
+                    </h5>
+                    <p class="card-text">Роскошный номер с VIP-удобствами, просторной ванной и видом на город.</p>
+                    <ul>
+                        <li>Площадь: 50 м²</li>
+                        <li>Кинг-сайз кровать</li>
+                        <li>Сауна, камин</li>
+                    </ul>
+                    <p class="card-text"><strong>Цена: 12000 ₽/ночь</strong></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

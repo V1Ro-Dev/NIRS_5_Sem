@@ -4,61 +4,40 @@
 
 {% block content %}
 
-<div class="container my-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <h1 class="text-center mb-4">Регистрация</h1>
+    <div class="register-container">
+        <div class="form-container-reg">
+            <h3 class="text-center mb-4">Регистрация</h3>
             <form>
-                <div class="mb-3 row">
-                    <label for="inputLogin" class="col-sm-4 col-form-label">Логин</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" id="inputLogin" placeholder="dr_pepper" required maxlength="20">
-                    </div>
+                <div class="mb-3">
+                    <label for="inputLogin" class="form-label">Логин</label>
+                    <input type="text" class="form-control" id="inputLogin" placeholder="Введите логин" required maxlength="20">
                 </div>
-                <div class="mb-3 row">
-                    <label for="inputEmail" class="col-sm-4 col-form-label">Почта</label>
-                    <div class="col-sm-8">
-                        <input type="email" class="form-control" id="inputEmail" placeholder="dr.pepper@mail.ru" required maxlength="30">
-                    </div>
+                <div class="mb-3">
+                    <label for="inputEmail" class="form-label">Почта</label>
+                    <input type="email" class="form-control" id="inputEmail" placeholder="Введите почту" required maxlength="30">
                 </div>
-                <div class="mb-3 row">
-                    <label for="inputPhone" class="col-sm-4 col-form-label">Номер телефона</label>
-                    <div class="col-sm-8">
-                        <input type="tel" class="form-control" id="inputPhone" placeholder="88005553535" required maxlength="12">
-                    </div>
+                <div class="mb-3">
+                    <label for="inputPhone" class="form-label">Номер телефона</label>
+                    <input type="tel" class="form-control" id="inputPhone" placeholder="Введите номер телефона" required maxlength="12">
                 </div>
-                <div class="mb-3 row">
-                    <label for="inputName" class="col-sm-4 col-form-label">Имя</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" id="inputName" placeholder="Матвей" required maxlength="20">
-                    </div>
+                <div class="mb-3">
+                    <label for="inputName" class="form-label">Имя</label>
+                    <input type="text" class="form-control" id="inputName" placeholder="Введите имя" required maxlength="20">
                 </div>
-                <div class="mb-3 row">
-                    <label for="inputSurName" class="col-sm-4 col-form-label">Фамилия</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" id="inputSurName" placeholder="Митрофанов" required maxlength="20">
-                    </div>
+                <div class="mb-3">
+                    <label for="inputSurName" class="form-label">Фамилия</label>
+                    <input type="text" class="form-control" id="inputSurName" placeholder="Введите фамилию" required maxlength="20">
                 </div>
-                <div class="mb-3 row">
-                    <label for="inputPassword" class="col-sm-4 col-form-label">Пароль</label>
-                    <div class="col-sm-8">
-                        <input type="password" class="form-control" id="inputPassword" placeholder="********" required maxlength="20">
-                    </div>
+                <div class="mb-3">
+                    <label for="inputPassword" class="form-label">Пароль</label>
+                    <input type="password" class="form-control" id="inputPassword" placeholder="Введите пароль" required maxlength="20">
                 </div>
-                <div class="mb-3 row">
-                    <label for="inputRepeatPassword" class="col-sm-4 col-form-label">Повторите пароль</label>
-                    <div class="col-sm-8">
-                        <input type="password" class="form-control" id="inputRepeatPassword" placeholder="********" required maxlength="20">
-                    </div>
+                <div class="mb-3">
+                    <label for="inputRepeatPassword" class="form-label">Повторите пароль</label>
+                    <input type="password" class="form-control" id="inputRepeatPassword" placeholder="Повторите пароль" required maxlength="20">
                 </div>
-                <div class="row">
-                    <div class="col text-center">
-                        <button class="btn btn-success mt-3" type="submit">Зарегистрироваться</button>
-                    </div>
-                </div>
+                <button type="submit" class="btn btn-primary w-100 mt-3">Зарегистрироваться</button>
             </form>
         </div>
     </div>
-</div>
-
 {% endblock %}

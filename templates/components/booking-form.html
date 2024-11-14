@@ -1,0 +1,31 @@
+<form>
+    <div class="mb-3">
+        <label for="luxName" class="form-label">Имя</label>
+        <input type="text" class="form-control" id="luxName" required>
+    </div>
+    <div class="mb-3">
+        <label for="luxSurname" class="form-label">Фамилия</label>
+        <input type="text" class="form-control" id="luxSurname" required>
+    </div>
+    <div class="mb-3">
+        <label for="luxCheckIn" class="form-label">Дата заезда</label>
+        <input type="date" class="form-control" id="luxCheckIn" required>
+    </div>
+    <div class="mb-3">
+        <label for="luxCheckOut" class="form-label">Дата выезда</label>
+        <input type="date" class="form-control" id="luxCheckOut" required>
+    </div>
+    <div class="mb-3">
+        <label for="lux_room_num" class="form-label">Номер комнаты</label>
+        <input type="number" class="form-control" id="lux_room_num" required>
+    </div>
+
+    <!-- Кнопка для проверки наличия свободных комнат -->
+    <button type="button" class="btn btn-primary">Проверить наличие</button>
+
+    <!-- Кнопка для бронирования -->
+    <button type="submit" class="btn btn-success">Забронировать</button>
+
+    <!-- Место для списка свободных комнат -->
+    <div id="availableRooms" class="mt-3"></div>
+</form>

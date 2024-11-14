@@ -5,4 +5,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('login/', views.login, name='login'),
     path('signup/', views.signup, name='signup'),
+    path('settings/', views.settings, name='settings'),
+    path('rooms/', views.rooms_and_bookings, name='rooms'),
+    path('rooms/<str:room_type>', views.rooms, name='room')
 ]

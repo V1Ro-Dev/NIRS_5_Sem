@@ -1,0 +1,17 @@
+{% extends 'layouts/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="container my-5">
+    {% if room_type == "lux" %}
+        {% include 'components/lux.html' %}
+    {% elif room_type == "econom" %}
+        {% include 'components/econom.html' %}
+    {% else %}
+        {% include 'components/presidential.html' %}
+    {% endif %}
+    <h3>Форма бронирования</h3>
+    {% include 'components/booking-form.html'%}
+</div>
+{% endblock %}
