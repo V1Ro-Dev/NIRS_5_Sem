@@ -1,3 +1,5 @@
+{% load static %}
+
 <form>
     <div class="mb-3">
         <label for="luxName" class="form-label">Имя</label>
@@ -6,6 +8,27 @@
     <div class="mb-3">
         <label for="luxSurname" class="form-label">Фамилия</label>
         <input type="text" class="form-control" id="luxSurname" required>
+    </div>
+    <div class="mb-3">
+        <label for="luxmail" class="form-label">Почта</label>
+        <input type="email" class="form-control" id="luxmail" required>
+    </div>
+    <div class="mb-3">
+        <label for="luxphone" class="form-label">Телефон</label>
+        <input type="tel" class="form-control" id="luxphone" required>
+    </div>
+    <div class="mb-3">
+        <label for="roomType" class="form-label">Тип номера</label>
+        <select class="form-select" id="roomType" name="room_type" required {% if room_type %}disabled{% endif %}>
+            <option selected disabled>Выберите тип номера</option>
+            <option value="econom" {% if room_type == 'econom' %}selected{% endif %}>Эконом</option>
+            <option value="lux" {% if room_type == 'lux' %}selected{% endif %}>Люкс</option>
+            <option value="presidential" {% if room_type == 'presidential' %}selected{% endif %}>Президентский</option>
+            <option value="all">Все типы</option>
+        </select>
+        {% if room_type %}
+        <input type="hidden" name="room_type" value="{{ room_type }}">
+        {% endif %}
     </div>
     <div class="mb-3">
         <label for="luxCheckIn" class="form-label">Дата заезда</label>
@@ -17,15 +40,11 @@
     </div>
     <div class="mb-3">
         <label for="lux_room_num" class="form-label">Номер комнаты</label>
-        <input type="number" class="form-control" id="lux_room_num" required>
+        <input type="number" class="form-control" id="lux_room_num">
     </div>
 
-    <!-- Кнопка для проверки наличия свободных комнат -->
-    <button type="button" class="btn btn-primary">Проверить наличие</button>
-
-    <!-- Кнопка для бронирования -->
+    <button type="submit" class="btn btn-primary">Проверить наличие</button>
     <button type="submit" class="btn btn-success">Забронировать</button>
 
-    <!-- Место для списка свободных комнат -->
     <div id="availableRooms" class="mt-3"></div>
 </form>

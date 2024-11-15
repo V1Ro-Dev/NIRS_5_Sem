@@ -3,6 +3,7 @@
 {% load static %}
 
 {% block content %}
+
 <div class="container my-5">
     {% if room_type == "lux" %}
         {% include 'components/lux.html' %}
@@ -14,4 +15,5 @@
     <h3>Форма бронирования</h3>
     {% include 'components/booking-form.html'%}
 </div>
+
 {% endblock %}

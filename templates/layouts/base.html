@@ -12,7 +12,6 @@
 </head>
 
 <body>
-    <!-- Navbar -->
     <nav class="navbar bg-body-tertiary fixed-top">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
@@ -33,10 +32,10 @@
                             <a class="nav-link" href="{% url 'rooms' %}">Номера и цены</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Фотогалерея</a>
+                            <a class="nav-link" href="{% url 'booking' %}">Бронирование</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Контакты</a>
+                            <a class="nav-link" href="{% url 'contacts' %}">Контакты и отзывы</a>
                         </li>
                     </ul>
                 </div>
@@ -54,35 +53,30 @@
 
     {% endblock %}
 
-    <!-- Footer -->
     <footer class="bg-dark text-light py-4 mt-5">
         <div class="container">
             <div class="row">
-                <!-- Contact Information -->
                 <div class="col-md-4 mb-3">
                     <h5>Контакты</h5>
-                    <p>Адрес: ул. Примерная, 123, Москва</p>
+                    <p>Адрес: ул. Охотный ряд, 2, Москва</p>
                     <p>Телефон: +7 (495) 123-45-67</p>
                     <p>Email: info@fourseasons.ru</p>
                 </div>
 
-                <!-- Quick Links -->
                 <div class="col-md-4 mb-3">
                     <h5>Полезные ссылки</h5>
                     <ul class="list-unstyled">
                         <li><a href="#" class="text-light">О нас</a></li>
                         <li><a href="#" class="text-light">Наши услуги</a></li>
-                        <li><a href="#" class="text-light">Политика конфиденциальности</a></li>
-                        <li><a href="#" class="text-light">Правила и условия</a></li>
+                        <li><a href="{% url 'contacts' %}" class="text-light">Контакты и отзывы</a></li>
                     </ul>
                 </div>
 
-                <!-- Social Media -->
                 <div class="col-md-4 mb-3">
                     <h5>Мы в соцсетях</h5>
-                    <a href="#" class="text-light me-3"><i class="bi bi-facebook"></i> Facebook</a>
-                    <a href="#" class="text-light me-3"><i class="bi bi-instagram"></i> Instagram</a>
-                    <a href="#" class="text-light"><i class="bi bi-twitter"></i> Twitter</a>
+                    <a href="https://vk.com/id321826905" class="text-light me-3"><i class="bi bi-facebook"></i> VK</a>
+                    <a href="https://www.instagram.com/try_hardddd" class="text-light me-3"><i class="bi bi-instagram"></i> Instagram</a>
+                    <a href="https://x.com/Flopped_again" class="text-light"><i class="bi bi-twitter"></i> Twitter</a>
                 </div>
             </div>
             <div class="text-center mt-3">
@@ -92,6 +86,7 @@
     </footer>
 
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
 </body>
 
 </html>

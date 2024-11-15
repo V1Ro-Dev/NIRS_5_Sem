@@ -1,0 +1,72 @@
+{% extends 'layouts/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="container my-5">
+    <h1 class="text-center">Бронирование</h1>
+    <p class="text-muted text-center">Забронируйте ваш комфортный отдых в нашем отеле!</p>
+
+    <div class="row mt-5">
+        <div class="col-md-6">
+            <h3>Как забронировать?</h3>
+            <p>
+                Мы сделали процесс бронирования максимально простым. Заполните форму, выберите даты и номер, и наши менеджеры свяжутся с вами для подтверждения.
+            </p>
+            <h4>Преимущества бронирования у нас:</h4>
+            <ul>
+                <li>Эксклюзивные скидки для онлайн-бронирований</li>
+                <li>Бесплатная отмена за 24 часа</li>
+                <li>Поддержка 24/7</li>
+            </ul>
+        </div>
+
+        <div class="col-md-6">
+            <h3>Форма бронирования</h3>
+                {% include 'components/booking-form.html' %}
+        </div>
+    </div>
+
+    <div class="mt-5">
+        <h3 class="text-center">Часто задаваемые вопросы</h3>
+        <div class="accordion mt-3" id="faqAccordion">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="faq1">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+                        Как можно отменить бронирование?
+                    </button>
+                </h2>
+                <div id="collapse1" class="accordion-collapse collapse" aria-labelledby="faq1">
+                    <div class="accordion-body">
+                        Вы можете отменить бронирование за 24 часа до даты заезда без штрафов. Для этого свяжитесь с нашим менеджером по указанным контактам.
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="faq2">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                        Какие способы оплаты принимаются?
+                    </button>
+                </h2>
+                <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="faq2">
+                    <div class="accordion-body">
+                        Мы принимаем оплату наличными при заселении.
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="faq3">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+                        Можно ли привезти с собой домашних животных?
+                    </button>
+                </h2>
+                <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="faq3">
+                    <div class="accordion-body">
+                        Да, в нашей гостинице разрешено проживание с небольшими домашними животными. Пожалуйста, уточните условия у менеджера.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
