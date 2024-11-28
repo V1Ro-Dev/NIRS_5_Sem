@@ -26,96 +26,51 @@
                 {% include 'components/booking-form.html' %}
         </div>
     </div>
-<div class="container mt-4">
-    <div class="row">
-        <!-- Первая карточка -->
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Номер 101</h5>
-                    <p class="card-text">Тип: Люкс</p>
-                    <p class="card-text">Цена: 5000₽</p>
-                    <button class="btn btn-success book-room" data-room="101" data-check-in="2024-12-01" data-check-out="2024-12-10">
-                        Забронировать
-                    </button>
+    <div class="container mt-4">
+        <div class="row">
+        {% for room in rooms %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Номер: {{ room.room_number }}</h5>
+                        <p class="card-text">Тип: {{ room.type_name }}</p>
+                        <p class="card-text">Цена: {{ room.total_price }}</p>
+                        <button class="btn btn-success book-room" data-room="101" data-check-in="2024-12-01" data-check-out="2024-12-10">
+                            Забронировать
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Вторая карточка -->
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Номер 102</h5>
-                    <p class="card-text">Тип: Эконом</p>
-                    <p class="card-text">Цена: 3000₽</p>
-                    <button class="btn btn-success book-room" data-room="102" data-check-in="2024-12-01" data-check-out="2024-12-10">
-                        Забронировать
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Третья карточка -->
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Номер 103</h5>
-                    <p class="card-text">Тип: Президентский</p>
-                    <p class="card-text">Цена: 15000₽</p>
-                    <button class="btn btn-success book-room" data-room="103" data-check-in="2024-12-01" data-check-out="2024-12-10">
-                        Забронировать
-                    </button>
-                </div>
-            </div>
+        {% endfor %}
         </div>
     </div>
-
-    <!-- Вторая строка карточек -->
-    <div class="row mt-4">
-        <!-- Четвертая карточка -->
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Номер 201</h5>
-                    <p class="card-text">Тип: Эконом</p>
-                    <p class="card-text">Цена: 3500₽</p>
-                    <button class="btn btn-success book-room" data-room="201" data-check-in="2024-12-01" data-check-out="2024-12-10">
-                        Забронировать
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Пятая карточка -->
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Номер 202</h5>
-                    <p class="card-text">Тип: Люкс</p>
-                    <p class="card-text">Цена: 7000₽</p>
-                    <button class="btn btn-success book-room" data-room="202" data-check-in="2024-12-01" data-check-out="2024-12-10">
-                        Забронировать
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Шестая карточка -->
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Номер 203</h5>
-                    <p class="card-text">Тип: Президентский</p>
-                    <p class="card-text">Цена: 20000₽</p>
-                    <button class="btn btn-success book-room" data-room="203" data-check-in="2024-12-01" data-check-out="2024-12-10">
-                        Забронировать
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+    <nav aria-label="Page navigation example" class="mt-3">
+        <ul class="pagination">
+            <li class="page-item">
+                {% if page_obj.has_previous %}
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+                {% endif %}
+            </li>
+    
+            {% for page_num in page_obj.paginator.page_range %}
+                {% if page_num >= page_obj.number|add:'-1' and page_num <= page_obj.number|add:'1' %}
+                    <li class="page-item {% if page_num == page_obj.number %}active{% endif %}">
+                        <a class="page-link" href="?page={{ page_num }}">{{ page_num }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+    
+            <li class="page-item">
+                {% if page_obj.has_next %}
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+                {% endif %}
+            </li>
+        </ul>
+    </nav>
 
 
     <div class="mt-5">

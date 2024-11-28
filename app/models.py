@@ -1,6 +1,30 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+from django.db.models import Q, ExpressionWrapper, F, When, Case, Value
+
+
+class RoomManager(models.Manager):
+    def get_available_rooms(self, check_in, check_out, room_type):
+        days_booked = (check_out - check_in).days + 1
+        query = self.filter(
+            ~Q(room_number__in=models.Subquery(
+                Bookings.objects.filter(
+                    Q(check_in_date__lte=check_out) & Q(check_out_date__gte=check_in)
+                ).values('room_number')
+            ))
+        )
+
+        if room_type != "Все типы":
+            query = query.filter(type_name=room_type)
+
+        return query.annotate(
+            total_price=ExpressionWrapper(
+                F('price_per_night') * days_booked,
+                output_field=models.IntegerField()
+            )
+        )
+
 
 class Clients(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, default='')
@@ -12,15 +36,37 @@ class Clients(models.Model):
 
 class Rooms(models.Model):
     ROOM_TYPES = [
-        ('econom', 'Эконом'),
-        ('lux', 'Люкс'),
-        ('presidential', 'Президентский'),
+        ('Эконом', 'Эконом'),
+        ('Люкс', 'Люкс'),
+        ('Президентский', 'Президентский'),
     ]
     room_number = models.IntegerField(primary_key=True)
     type_name = models.TextField(choices=ROOM_TYPES, max_length=32)
     price_per_night = models.IntegerField()
     room_size_sqm = models.IntegerField()
     payment_option = models.TextField(max_length=8)
+
+    ROOM_TYPE_PRICES = {
+        'Эконом': 3000,
+        'Люкс': 7000,
+        'Президентский': 15000,
+    }
+
+    ROOM_SIZE_SQM = {
+        'Эконом': 50,
+        'Люкс': 80,
+        'Президентский': 100,
+    }
+
+    def save(self, *args, **kwargs):
+        if self.type_name in self.ROOM_TYPE_PRICES:
+            self.price_per_night = self.ROOM_TYPE_PRICES[self.type_name]
+
+        if self.room_size_sqm in self.ROOM_SIZE_SQM:
+            self.room_size_sqm = self.ROOM_SIZE_SQM[self.room_size_sqm]
+        super().save(*args, **kwargs)
+
+    objects = RoomManager()
 
     def __str__(self):
         return f'Номер {self.room_number}'
