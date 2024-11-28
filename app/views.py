@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import Http404
 from django.shortcuts import render
@@ -50,14 +51,21 @@ def booking(request):
         check_rooms_form = forms.CheckAvailabilityForm(request.POST)
         if check_rooms_form.is_valid():
             availability = paginate(models.Rooms.objects.get_available_rooms(**check_rooms_form.cleaned_data), request)
-            print(len(availability))
             return render(request,
                           'booking.html',
-                          context={'rooms': availability}
+                          context={'rooms': availability,
+                                   'check_in': request.POST['check_in'],
+                                   'check_out': request.POST['check_out']
+                                   }
                           )
     else:
         check_rooms_form = forms.CheckAvailabilityForm()
     return render(request, 'booking.html')
+
+
+@login_required
+def book_room(request):
+    pass
 
 
 def contacts(request):
