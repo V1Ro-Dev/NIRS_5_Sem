@@ -1,7 +1,6 @@
 {% load static %}
 
-<form method="post">
-    {% csrf_token %}
+<form method="get">
     <div class="mb-3">
         <label for="roomType" class="form-label">Тип номера</label>
         <select class="form-select" id="roomType" name="room_type" required {% if room_type %}disabled{% endif %}>
@@ -16,11 +15,11 @@
     </div>
     <div class="mb-3">
         <label for="luxCheckIn" class="form-label">Дата заезда</label>
-        <input name='check_in' type="date" class="form-control" id="luxCheckIn" required>
+        <input name='check_in' type="date" class="form-control" id="luxCheckIn" value="{{ check_rooms_form.data.check_in }}" required>
     </div>
     <div class="mb-3">
         <label for="luxCheckOut" class="form-label">Дата выезда</label>
-        <input name='check_out' type="date" class="form-control" id="luxCheckOut" required>
+        <input name='check_out' type="date" class="form-control" id="luxCheckOut" value="{{ check_rooms_form.data.check_out }}" required>
     </div>
 
     <button type="submit" class="btn btn-primary">Проверить наличие</button>

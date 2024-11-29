@@ -29,90 +29,14 @@
     <div class="container mt-4">
         <div class="row">
         {% for room in rooms %}
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Номер: {{ room.room_number }}</h5>
-                        <p class="card-text">Тип: {{ room.type_name }}</p>
-                        <p class="card-text">Цена: {{ room.total_price }}</p>
-                        <button class="btn btn-success book-room" data-room="101" data-check-in="2024-12-01" data-check-out="2024-12-10">
-                            Забронировать
-                        </button>
-                    </div>
-                </div>
-            </div>
+            {% include 'components/room_card.html' %}
         {% endfor %}
         </div>
     </div>
-    <nav aria-label="Page navigation example" class="mt-3">
-        <ul class="pagination">
-            <li class="page-item">
-                {% if page_obj.has_previous %}
-                <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-                {% endif %}
-            </li>
-    
-            {% for page_num in page_obj.paginator.page_range %}
-                {% if page_num >= page_obj.number|add:'-1' and page_num <= page_obj.number|add:'1' %}
-                    <li class="page-item {% if page_num == page_obj.number %}active{% endif %}">
-                        <a class="page-link" href="?page={{ page_num }}">{{ page_num }}</a>
-                    </li>
-                {% endif %}
-            {% endfor %}
-    
-            <li class="page-item">
-                {% if page_obj.has_next %}
-                <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-                {% endif %}
-            </li>
-        </ul>
-    </nav>
 
+    {% include 'components/pagination.html' %}
 
-    <div class="mt-5">
-        <h3 class="text-center">Часто задаваемые вопросы</h3>
-        <div class="accordion mt-3" id="faqAccordion">
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="faq1">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
-                        Как можно отменить бронирование?
-                    </button>
-                </h2>
-                <div id="collapse1" class="accordion-collapse collapse" aria-labelledby="faq1">
-                    <div class="accordion-body">
-                        Вы можете отменить бронирование за 24 часа до даты заезда без штрафов. Для этого свяжитесь с нашим менеджером по указанным контактам.
-                    </div>
-                </div>
-            </div>
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="faq2">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
-                        Какие способы оплаты принимаются?
-                    </button>
-                </h2>
-                <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="faq2">
-                    <div class="accordion-body">
-                        Мы принимаем оплату наличными при заселении.
-                    </div>
-                </div>
-            </div>
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="faq3">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
-                        Можно ли привезти с собой домашних животных?
-                    </button>
-                </h2>
-                <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="faq3">
-                    <div class="accordion-body">
-                        Да, в нашей гостинице разрешено проживание с небольшими домашними животными. Пожалуйста, уточните условия у менеджера.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    {% include 'components/faq.html' %}
+
 </div>
 {% endblock %}

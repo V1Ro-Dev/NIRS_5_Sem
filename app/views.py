@@ -1,7 +1,8 @@
+from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import Http404
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from app import forms
 from app import models
 
@@ -9,14 +10,17 @@ from app import models
 def paginate(object_list, request, per_page=9):
     paginator = Paginator(object_list, per_page)
     page = request.GET.get('page', 1)
+
+    query_params = request.GET.copy()
+    if 'page' in query_params:
+        query_params.pop('page')
+
     try:
-        paginator.page(page)
-    except PageNotAnInteger:
+        current_page = paginator.page(page)
+    except (PageNotAnInteger, EmptyPage):
         raise Http404("Page not found")
-    except EmptyPage:
-        raise Http404("Page not found")
-    else:
-        return paginator.page(page)
+
+    return current_page, query_params.urlencode()
 
 
 def index(request):
@@ -24,7 +28,24 @@ def index(request):
 
 
 def login(request):
-    return render(request, 'login.html')
+    if request.method == "POST":
+        login_form = forms.LoginForm(request.POST)
+        if login_form.is_valid():
+            user = auth.authenticate(request, **login_form.cleaned_data)
+            if user is not None:
+                auth.login(request, user)
+                return redirect('index')
+            else:
+                login_form.add_error(None, "Wrong username or password!")
+    else:
+        login_form = forms.LoginForm()
+
+    return render(request, 'login.html',{'form': login_form})
+
+
+def logout(request):
+    auth.logout(request)
+    return redirect('index')
 
 
 def signup(request):
@@ -40,34 +61,48 @@ def rooms_and_bookings(request):
 
 
 def rooms(request, room_type):
-    # if room_type in ('lux', 'econom', 'presidential'):
-    return render(request, 'room.html', context={'room_type': room_type})
-    # else:
-    #     return Http404('page not found')
+    if request.method == 'GET':
+        check_rooms_form = forms.CheckAvailabilityForm(request.GET)
+        if check_rooms_form.is_valid():
+            availability, query_params = paginate(
+                models.Rooms.objects.get_available_rooms(**check_rooms_form.cleaned_data),
+                request
+            )
+            return render(request, 'room.html', {
+                'rooms': availability,
+                'query_params': query_params,
+                'check_in': request.GET.get('check_in'),
+                'check_out': request.GET.get('check_out'),
+            })
+    else:
+        check_rooms_form = forms.CheckAvailabilityForm()
+    return render(request, 'room.html', {'check_rooms_form': check_rooms_form})
 
 
 def booking(request):
-    if request.method == 'POST':
-        check_rooms_form = forms.CheckAvailabilityForm(request.POST)
+    if request.method == 'GET':
+        check_rooms_form = forms.CheckAvailabilityForm(request.GET)
         if check_rooms_form.is_valid():
-            availability = paginate(models.Rooms.objects.get_available_rooms(**check_rooms_form.cleaned_data), request)
-            return render(request,
-                          'booking.html',
-                          context={'rooms': availability,
-                                   'check_in': request.POST['check_in'],
-                                   'check_out': request.POST['check_out']
-                                   }
-                          )
+            availability, query_params = paginate(
+                models.Rooms.objects.get_available_rooms(**check_rooms_form.cleaned_data),
+                request
+            )
+            return render(request, 'booking.html', {
+                'rooms': availability,
+                'query_params': query_params,
+                'check_in': request.GET.get('check_in'),
+                'check_out': request.GET.get('check_out'),
+                'check_rooms_form': check_rooms_form
+            })
     else:
         check_rooms_form = forms.CheckAvailabilityForm()
-    return render(request, 'booking.html')
+    return render(request, 'booking.html', {'check_rooms_form': check_rooms_form})
 
 
-@login_required
-def book_room(request):
-    pass
+@login_required()
+def book_room(request, room_id):
+    return render(request, 'room-booking.html', context={'room_id': room_id})
 
 
 def contacts(request):
     return render(request, 'contacts.html')
-

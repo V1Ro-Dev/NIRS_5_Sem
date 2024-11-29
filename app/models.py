@@ -1,7 +1,9 @@
+import uuid
+
 from django.db import models
 from django.contrib.auth.models import User
 
-from django.db.models import Q, ExpressionWrapper, F, When, Case, Value
+from django.db.models import Q, ExpressionWrapper, F
 
 
 class RoomManager(models.Manager):
@@ -17,7 +19,6 @@ class RoomManager(models.Manager):
 
         if room_type != "Все типы":
             query = query.filter(type_name=room_type)
-
         return query.annotate(
             total_price=ExpressionWrapper(
                 F('price_per_night') * days_booked,
@@ -41,10 +42,10 @@ class Rooms(models.Model):
         ('Президентский', 'Президентский'),
     ]
     room_number = models.IntegerField(primary_key=True)
+    id = models.UUIDField(default=uuid.uuid4, editable=False)
     type_name = models.TextField(choices=ROOM_TYPES, max_length=32)
     price_per_night = models.IntegerField()
     room_size_sqm = models.IntegerField()
-    payment_option = models.TextField(max_length=8)
 
     ROOM_TYPE_PRICES = {
         'Эконом': 3000,
@@ -73,10 +74,16 @@ class Rooms(models.Model):
 
 
 class Bookings(models.Model):
+    PAYMENT_OPTIONS = [
+        ('СБП', 'СПБ'),
+        ('Наличные', 'Наличные'),
+        ('Карта', 'Карта'),
+    ]
     renter_id = models.ForeignKey(Clients, on_delete=models.PROTECT)
     room_number = models.ForeignKey(Rooms, on_delete=models.PROTECT)
     check_in_date = models.DateField()
     check_out_date = models.DateField()
+    payment_option = models.CharField(choices=PAYMENT_OPTIONS,max_length=8)
 
     def __str__(self):
         return self.renter_id.user.username

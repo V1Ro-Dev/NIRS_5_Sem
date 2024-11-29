@@ -1,2 +1,18 @@
 
 {% load static %}
+
+<div class="col-md-4 mb-4">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Номер: {{ room.room_number }}</h5>
+            <p class="card-text">Тип: {{ room.type_name }}</p>
+            <p class="card-text">Цена: {{ room.total_price }}</p>
+            <a href="{% url 'book_room' room_id=room.id %}">
+                <button class="btn btn-success book-room" data-room="101" data-check-in="2024-12-01" data-check-out="2024-12-10">
+                Забронировать
+                </button>
+            </a>
+        </div>
+    </div>
+</div>
+
