@@ -4,6 +4,13 @@ from django.contrib.auth.models import User
 from django.db.models import Q, ExpressionWrapper, F
 
 
+class BookingManager(models.Manager):
+    def check_available(self, check_in, check_out, room_type, room):
+        if room in Rooms.objects.get_available(check_in, check_out, room_type):
+            return True
+        return False
+
+
 class RoomManager(models.Manager):
     def get_available_rooms(self, check_in, check_out, room_type):
         days_booked = (check_out - check_in).days + 1
@@ -81,10 +88,12 @@ class Bookings(models.Model):
     room_number = models.ForeignKey(Rooms, on_delete=models.PROTECT)
     check_in_date = models.DateField()
     check_out_date = models.DateField()
-    payment_option = models.CharField(choices=PAYMENT_OPTIONS,max_length=8)
+    payment_option = models.CharField(choices=PAYMENT_OPTIONS, max_length=8)
 
     def __str__(self):
         return self.renter_id.user.username
+
+    objects = BookingManager()
 
 
 class Payments(models.Model):

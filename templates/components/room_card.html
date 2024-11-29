@@ -7,8 +7,8 @@
             <h5 class="card-title">Номер: {{ room.room_number }}</h5>
             <p class="card-text">Тип: {{ room.type_name }}</p>
             <p class="card-text">Цена: {{ room.total_price }}</p>
-            <a href="{% url 'book_room' room_id=room.id %}">
-                <button class="btn btn-success book-room" data-room="101" data-check-in="2024-12-01" data-check-out="2024-12-10">
+            <a href="{% url 'book_room' room_id=room.id %}?check_in={{ check_in }}&check_out={{ check_out }}">
+                <button class="btn btn-success book-room">
                 Забронировать
                 </button>
             </a>

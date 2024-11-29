@@ -1,11 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>Тест</h1>
-<h2>{{ room_id }}</h2>
-</body>
-</html>
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<div class="container my-5 d-flex flex-column justify-content-center align-items-center">
+    <form method="post" class="mt-4 w-100" style="max-width: 600px; background-color: #f8f9fa; padding: 30px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); margin: 20px">
+        {% csrf_token %}
+        
+        <h3 class="text-center mb-4">Заполните форму для бронирования</h3>
+
+        <div class="mb-3">
+            <label for="first_name" class="form-label">Имя</label>
+            <input type="text" class="form-control" id="first_name" name="first_name" {{ user.first_name }} required disabled>
+        </div>
+        
+        <div class="mb-3">
+            <label for="last_name" class="form-label">Фамилия</label>
+            <input type="text" class="form-control" id="last_name" name="last_name" value="{{ user.last_name }}" required disabled>
+        </div>
+        
+        <div class="mb-3">
+            <label for="email" class="form-label">Электронная почта</label>
+            <input type="email" class="form-control" id="email" name="email" {{ user.email }} required disabled>
+        </div>
+        
+        <div class="mb-3">
+            <label for="phone" class="form-label">Номер телефона</label>
+            <input type="tel" class="form-control" id="phone" name="phone" value="{{ phone }}" required maxlength="12" disabled>
+        </div>
+
+        <div class="mb-3">
+            <label for="check_in" class="form-label">Дата заезда</label>
+            <input type="date" class="form-control" id="check_in" value="{{ check_in }}" disabled>
+        </div>
+        
+        <div class="mb-3">
+            <label for="check_out" class="form-label">Дата выезда</label>
+            <input type="date" class="form-control" id="check_out" value="{{ check_out }}" disabled>
+        </div>
+
+        <div class="mb-3">
+            <label for="total_price" class="form-label">Суммарная стоимость</label>
+            <input type="text" class="form-control" id="total_price" name="total_price" value="{{ room.price_per_night }}" disabled>
+        </div>
+
+        <div class="mb-3">
+            <label for="payment_method" class="form-label">Метод оплаты</label>
+            <select class="form-select" id="payment_method" name="payment_method" required>
+                <option value="СБП">СБП</option>
+                <option value="Наличные">Наличные</option>
+                <option value="Карта">Карта</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100 mt-3">Забронировать</button>
+    </form>
+</div>
+{% endblock %}
