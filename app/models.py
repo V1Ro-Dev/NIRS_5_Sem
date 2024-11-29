@@ -1,8 +1,6 @@
 import uuid
-
 from django.db import models
 from django.contrib.auth.models import User
-
 from django.db.models import Q, ExpressionWrapper, F
 
 
@@ -63,8 +61,8 @@ class Rooms(models.Model):
         if self.type_name in self.ROOM_TYPE_PRICES:
             self.price_per_night = self.ROOM_TYPE_PRICES[self.type_name]
 
-        if self.room_size_sqm in self.ROOM_SIZE_SQM:
-            self.room_size_sqm = self.ROOM_SIZE_SQM[self.room_size_sqm]
+        if self.type_name in self.ROOM_SIZE_SQM:
+            self.room_size_sqm = self.ROOM_SIZE_SQM[self.type_name]
         super().save(*args, **kwargs)
 
     objects = RoomManager()

@@ -73,10 +73,15 @@ def rooms(request, room_type):
                 'query_params': query_params,
                 'check_in': request.GET.get('check_in'),
                 'check_out': request.GET.get('check_out'),
+                'check_rooms_form': check_rooms_form,
+                'room_type': room_type
             })
     else:
         check_rooms_form = forms.CheckAvailabilityForm()
-    return render(request, 'room.html', {'check_rooms_form': check_rooms_form})
+    return render(request, 'room.html', {
+        'check_rooms_form': check_rooms_form,
+        'room_type': room_type}
+                  )
 
 
 def booking(request):

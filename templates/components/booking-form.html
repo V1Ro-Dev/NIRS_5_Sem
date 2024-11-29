@@ -5,9 +5,9 @@
         <label for="roomType" class="form-label">Тип номера</label>
         <select class="form-select" id="roomType" name="room_type" required {% if room_type %}disabled{% endif %}>
             <option name='room_type' value="Все типы" selected >Все типы</option>
-            <option name='room_type' value="Эконом" {% if room_type == 'econom' %}selected{% endif %}>Эконом</option>
-            <option name='room_type' value="Люкс" {% if room_type == 'lux' %}selected{% endif %}>Люкс</option>
-            <option name='room_type' value="Президентский" {% if room_type == 'presidential' %}selected{% endif %}>Президентский</option>
+            <option name='room_type' value="Эконом" {% if room_type == 'Эконом' %}selected{% endif %}>Эконом</option>
+            <option name='room_type' value="Люкс" {% if room_type == 'Люкс' %}selected{% endif %}>Люкс</option>
+            <option name='room_type' value="Президентский" {% if room_type == 'Президентский' %}selected{% endif %}>Президентский</option>
         </select>
         {% if room_type %}
         <input type="hidden" name="room_type" value="{{ room_type }}">
