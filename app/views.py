@@ -1,5 +1,4 @@
 import datetime
-
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
@@ -8,6 +7,7 @@ from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from app import forms
 from app import models
+from django.contrib import messages
 
 
 def paginate(object_list, request, per_page=9):
@@ -137,41 +137,71 @@ def booking(request):
 def book_room(request, room_id):
     room = get_object_or_404(models.Rooms, id=room_id)
 
-    check_in = request.GET.get('check_in', datetime.today().date())
-    check_out = request.GET.get('check_out', datetime.today().date())
+    check_in = request.GET.get('check_in')
+    check_out = request.GET.get('check_out')
 
-    check_in_date = datetime.strptime(check_in, '%Y-%m-%d').date()
-    check_out_date = datetime.strptime(check_out, '%Y-%m-%d').date()
+    check_in_date = datetime.datetime.strptime(check_in, '%Y-%m-%d').date()
+    check_out_date = datetime.datetime.strptime(check_out, '%Y-%m-%d').date()
 
     nights = (check_out_date - check_in_date).days + 1
 
     total_price = room.price_per_night * nights
 
     if request.method == 'POST':
-        if not models.Bookings.objects.check_in(check_in, check_in_date, check_out_date):
-            return Http404("Данный номер занят в эти даты")
-        check_rooms_form = forms.CheckAvailabilityForm(request.GET)
-        if check_rooms_form.is_valid():
-            availability, query_params = paginate(
-                models.Rooms.objects.get_available_rooms(**check_rooms_form.cleaned_data),
-                request
-            )
-            return render(request, 'room.html', {
-                'rooms': availability,
-                'query_params': query_params,
-                'check_in': request.GET.get('check_in'),
-                'check_out': request.GET.get('check_out'),
-                'check_rooms_form': check_rooms_form,
-                'room_type': room.type_name
-            })
+        # if not models.Bookings.objects.check_avaliable(check_in_date, check_out_date, room, room.type_name):
+        #     return redirect('booking')
+        book_room_form = forms.BookingForm(request.user, request.POST)
+        if book_room_form.is_valid():
+            book_room = book_room_form.save()
+            if book_room:
+                request.session['check_in_date'] = check_in_date.strftime('%d.%m.%Y')
+                request.session['check_out_date'] = check_out_date.strftime('%d.%m.%Y')
+                request.session['total_price'] = total_price
+                request.session['room_number'] = room.room_number
+                return redirect('success')
     else:
-        check_rooms_form = forms.CheckAvailabilityForm()
-    return render(request, 'room.html', {
-        'check_rooms_form': check_rooms_form,
-        'room_type': room_type}
-                  )
+        book_room_form = forms.BookingForm(request.user)
+    return render(request, 'room-booking.html', {'form': book_room_form,
+                                                 'room_number': room.room_number,
+                                                 'check_in_date': check_in,
+                                                 'check_out_date': check_out,
+                                                 'total_price': total_price
+                                                 })
 
+
+@login_required()
+def success(request):
+    check_in_date = request.session.get('check_in_date')
+    check_out_date = request.session.get('check_out_date')
+    total_price = request.session.get('total_price')
+    room_number = request.session.get('room_number')
+
+    if not check_in_date or not check_out_date or not total_price:
+        return redirect('booking')
+
+    # Отображаем страницу успеха
+    return render(request, 'success-page.html', {
+        'check_in_date': check_in_date,
+        'check_out_date': check_out_date,
+        'total_price': total_price,
+        'room_number': room_number,
+    })
 
 
 def contacts(request):
-    return render(request, 'contacts.html')
+    if request.method == 'POST':
+        rating_form = forms.FeedbackForm(request.user, request.POST)
+        if rating_form.is_valid():
+            rating_form.save()
+            messages.success(request, 'Ваш отзыв успешно отправлен! Спасибо за обратную связь.')
+            return redirect('contacts')
+        else:
+            messages.error(request, 'Пожалуйста, исправьте ошибки в форме.')
+    else:
+        rating_form = forms.FeedbackForm(request.user)
+
+    return render(request, 'contacts.html', {'form': rating_form})
+
+
+def spa(request):
+    return render(request, 'spa.html')

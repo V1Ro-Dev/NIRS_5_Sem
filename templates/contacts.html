@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<div class="container my-5">
+<div class="container my-5 pt-5">
     <h1 class="mb-4">Контакты</h1>
     <p class="lead">Мы всегда готовы ответить на ваши вопросы и помочь с бронированием. Свяжитесь с нами любым удобным способом!</p>
 
@@ -32,29 +32,83 @@
         </div>
         </div>
     </div>
+    
+    {% if user.is_authenticated %}
 
     <div class="mt-5">
         <h3>Оставьте ваш отзыв на сайте, он поможет сделать наш сервис лучше</h3>
-        <form>
+        {% if messages %}
+                <div class="alert alert-info">
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+        {% endif %}
+        <form method="POST">
+            {% csrf_token %}
             <div class="mb-3">
                 <label for="name" class="form-label">Ваше имя</label>
-                <input type="text" class="form-control" id="name" placeholder="Введите ваше имя" required>
+                <input type="text" class="form-control" id="name" name="first_name" placeholder="Введите ваше имя" value="{{ request.user.first_name }}" required readonly>
             </div>
             <div class="mb-3">
-                <label for="surname" class="form-label">Ваше фамилия</label>
-                <input type="text" class="form-control" id="surname" placeholder="Введите вашу фамилия" required>
+                <label for="surname" class="form-label">Ваша фамилия</label>
+                <input type="text" class="form-control" id="surname" name="last_name" placeholder="Введите вашу фамилию" value="{{ request.user.last_name }}" required readonly>
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Ваш email</label>
-                <input type="email" class="form-control" id="email" placeholder="Введите ваш email" required>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Введите ваш email" value="{{ request.user.email }}" required readonly>
             </div>
             <div class="mb-3">
                 <label for="message" class="form-label">Ваше сообщение</label>
-                <textarea class="form-control" id="message" rows="5" placeholder="Напишите ваше сообщение" required></textarea>
+                <textarea class="form-control" id="message" rows="5" placeholder="Напишите ваше сообщение" name="rating_feedback" required></textarea>
             </div>
+            
+            <div class="mb-3">
+                <label class="form-label">Оцените наш сервис</label><br>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="rating_value" id="rating1" value="1">
+                    <label class="form-check-label" for="rating1">1</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="rating_value" id="rating2" value="2">
+                    <label class="form-check-label" for="rating2">2</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="rating_value" id="rating3" value="3">
+                    <label class="form-check-label" for="rating3">3</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="rating_value" id="rating4" value="4">
+                    <label class="form-check-label" for="rating4">4</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="rating_value" id="rating5" value="5">
+                    <label class="form-check-label" for="rating5">5</label>
+                </div>
+            </div>
+
             <button type="submit" class="btn btn-success">Отправить</button>
         </form>
     </div>
+    <div class="mt-5">
+        <h3>Почему выбирают нас?</h3>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <strong>Удобное местоположение:</strong> в самом центре Москвы, рядом с Красной площадью и главными достопримечательностями.
+            </li>
+            <li class="list-group-item">
+                <strong>Отличный сервис:</strong> внимательный персонал, готовый помочь в любое время.
+            </li>
+            <li class="list-group-item">
+                <strong>Лучшие условия:</strong> комфортные номера для любого бюджета.
+            </li>
+            <li class="list-group-item">
+                <strong>Гибкая система бронирования:</strong> быстрый и удобный процесс оформления.
+            </li>
+        </ul>
+    </div>
+        
+    {% else %}
 
     <div class="mt-5">
         <h3>Почему выбирают нас?</h3>
@@ -73,6 +127,8 @@
             </li>
         </ul>
     </div>
+{% endif %}
 </div>
+
 
 {% endblock %}

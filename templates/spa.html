@@ -1,0 +1,108 @@
+{% extends 'layouts/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="container-fluid spa-wellness-section">
+    <div class="row hero-section text-center text-light py-5" style="background-image: url('{% static 'img/spa-hero.jpg' %}'); background-size: cover; background-position: center;">
+        <div class="col-12">
+            <h1 class="display-4 fw-bold">Расслабьтесь и восстановите силы</h1>
+            <p class="lead">Погрузитесь в мир полного расслабления и заботы о себе в нашем спа и велнес-центре.</p>
+        </div>
+    </div>
+    
+    <div class="container py-5">
+        <h2 class="text-center mb-4">Что вас ждет</h2>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 mb-4">
+                <div class="card shadow-lg border-0">
+                    <img src="{% static 'img/relaxation-area.jpg' %}" class="card-img-top" alt="Relaxation Area">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Зона отдыха</h5>
+                        <p class="card-text">Идеальное место для расслабления после насыщенного дня. Наслаждайтесь тишиной и комфортом в специально оборудованной зоне для восстановления.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-4">
+                <div class="card shadow-lg border-0">
+                    <img src="{% static 'img/steam-room.jpg' %}" class="card-img-top" alt="Steam Room">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Парная</h5>
+                        <p class="card-text">Расслабьтесь в нашей парной и наслаждайтесь целебным воздействием пара, который помогает снять напряжение и улучшить кровообращение.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container py-5">
+        <h3 class="text-center">Доступность услуг</h3>
+        <p class="lead text-center">Наш спа и велнес-центр предназначены исключительно для гостей, остановившихся в люкс и президентских номерах. Погружение в атмосферу отдыха и релаксации в нашем центре доступно только для тех, кто выбрал наиболее комфортные и роскошные условия пребывания в нашем отеле.</p>
+    </div>
+    
+    <div class="container py-5">
+        <h2 class="text-center mb-4">Наши пакеты услуг</h2>
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card shadow-lg border-0">
+                    <img src="{% static 'img/relaxation-package.jpg' %}" class="card-img-top" alt="Relaxation Package">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Пакет расслабления</h5>
+                        <p class="card-text">Идеальный выбор для тех, кто хочет расслабиться и восстановить силы. Включает процедуры массажа и время в сауне.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card shadow-lg border-0">
+                    <img src="{% static 'img/wellness-package.jpg' %}" class="card-img-top" alt="Wellness Package" style="height: 275px">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Пакет велнес</h5>
+                        <p class="card-text">Пакет для глубокого восстановления, включающий йогу, медитацию и терапевтические процедуры для восстановления душевного и физического баланса.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card shadow-lg border-0">
+                    <img src="{% static 'img/premium-package.jpg' %}" class="card-img-top" alt="Premium Package" style="height: 275px">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Премиум пакет</h5>
+                        <p class="card-text">Для тех, кто ищет максимальный комфорт и эксклюзивное внимание. Этот пакет включает персональные консультации и индивидуальные процедуры.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container py-5">
+        <h2 class="text-center mb-4">Особенности нашего спа и велнес-центра</h2>
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card shadow-lg border-0">
+                    <img src="{% static 'img/beauty-treatment.jpg' %}" class="card-img-top" alt="Beauty Treatment">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Косметические процедуры</h5>
+                        <p class="card-text">Мы предлагаем широкий спектр косметических процедур для улучшения состояния кожи и поддержания молодости и красоты.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card shadow-lg border-0">
+                    <img src="{% static 'img/fitness-area.jpg' %}" class="card-img-top" alt="Fitness Area" style="height: 425px">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Фитнес-зона</h5>
+                        <p class="card-text">Наш фитнес-центр оборудован современными тренажерами для поддержания физической формы и активного образа жизни.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container py-5 bg-light rounded-3">
+        <h3 class="text-center mb-4">Погрузитесь в атмосферу полного расслабления</h3>
+        <p class="lead text-center">После насыщенного дня посвятите время себе в нашем спа и велнес-центре. Восстановите энергию, улучшите самочувствие и насладитесь спокойствием.</p>
+        <div class="text-center mt-4">
+            <img src="{% static 'img/spa-relax.jpg' %}" alt="Relaxation" class="img-fluid" style="max-width: 80%; border-radius: 10px;">
+        </div>
+    </div>
+</div>
+{% endblock %}

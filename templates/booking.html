@@ -3,10 +3,31 @@
 {% load static %}
 
 {% block content %}
-<div class="container my-5">
+<div class="container my-5 d-flex flex-column min-vh-100">
     <h1 style="margin: 10px" class="text-center">Бронирование</h1>
     <p class="text-muted text-center">Забронируйте ваш комфортный отдых в нашем отеле!</p>
-
+    
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <h3 class="text-center">Почему выбирают нас?</h3>
+            <p class="text-center">
+                Наш отель предлагает не только комфортное размещение, но и высокий уровень обслуживания. Мы обеспечим вам незабываемый отдых с максимальными удобствами.
+            </p>
+        </div>
+    </div>
+    
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <h4 class="text-center">Преимущества бронирования у нас:</h4>
+            <ul class="list-group">
+                <li class="list-group-item">Эксклюзивные скидки для онлайн-бронирований</li>
+                <li class="list-group-item">Бесплатная отмена за 24 часа</li>
+                <li class="list-group-item">Поддержка 24/7</li>
+                <li class="list-group-item">Собственная спа-зона и тренажерный зал</li>
+            </ul>
+        </div>
+    </div>
+    
     <div class="row mt-5">
         <div class="col-md-6">
             <h3>Как забронировать?</h3>
@@ -23,9 +44,10 @@
 
         <div class="col-md-6">
             <h3>Форма бронирования</h3>
-                {% include 'components/booking-form.html' %}
+            {% include 'components/booking-form.html' %}
         </div>
     </div>
+    
     <div class="container mt-4">
         <div class="row">
         {% for room in rooms %}
@@ -37,6 +59,39 @@
     {% include 'components/pagination.html' %}
 
     {% include 'components/faq.html' %}
-
 </div>
+{% endblock %}
+
+{% block footer %}
+<footer class="bg-dark text-light py-4 mt-auto">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <h5>Контакты</h5>
+                <p>Адрес: ул. Охотный ряд, 2, Москва</p>
+                <p>Телефон: +7 (495) 123-45-67</p>
+                <p>Email: info@fourseasons.ru</p>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <h5>Полезные ссылки</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-light">О нас</a></li>
+                    <li><a href="#" class="text-light">Наши услуги</a></li>
+                    <li><a href="{% url 'contacts' %}" class="text-light">Контакты и отзывы</a></li>
+                </ul>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <h5>Мы в соцсетях</h5>
+                <a href="https://vk.com/id321826905" class="text-light me-3"><i class="bi bi-facebook"></i> VK</a>
+                <a href="https://www.instagram.com/try_hardddd" class="text-light me-3"><i class="bi bi-instagram"></i> Instagram</a>
+                <a href="https://x.com/Flopped_again" class="text-light"><i class="bi bi-twitter"></i> Twitter</a>
+            </div>
+        </div>
+        <div class="text-center mt-3">
+            <p>&copy; 2024 Four Seasons. Все права защищены.</p>
+        </div>
+    </div>
+</footer>
 {% endblock %}

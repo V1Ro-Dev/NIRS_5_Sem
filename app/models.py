@@ -5,8 +5,8 @@ from django.db.models import Q, ExpressionWrapper, F
 
 
 class BookingManager(models.Manager):
-    def check_available(self, check_in, check_out, room_type, room):
-        if room in Rooms.objects.get_available(check_in, check_out, room_type):
+    def check_avaliable(self, check_in, check_out, room, room_type):
+        if room in Rooms.objects.get_available_rooms(check_in, check_out, room_type):
             return True
         return False
 

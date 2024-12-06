@@ -1,24 +1,22 @@
-
 {% load static %}
 
-    <h1 style="margin: 20px; text-align: center">Президентский номер</h1>
+<h1 class="text-center my-4" style="font-size: 2.5rem;">Президентский номер</h1>
 
-    <div class="row">
-        <div class="col-md-6">
-            <img src="{% static '/images/presidential-room.jpg' %}" class="img-fluid" alt="Президентский номер">
-        </div>
-        <div class="col-md-6">
-            <h3>Описание номера</h3>
-            <p>Роскошный президентский номер с VIP-удобствами, просторной ванной и панорамным видом на город. Этот номер идеален для самых взыскательных гостей.</p>
-            <ul>
-                <li>Площадь: 50 м²</li>
-                <li>Кинг-сайз кровать, 2 телевизора</li>
-                <li>Сауна, джакузи, камин</li>
-                <li>Мини-бар, кофемашина</li>
-                <li>Бесплатный доступ в интернет, кондиционер, безопасность класса люкс</li>
-                <li>Санузел с ванной и отдельной душевой</li>
-            </ul>
-            <p><strong>Цена: 12000 ₽/ночь</strong></p>
-        </div>
+<div class="row">
+    <div class="col-md-6">
+        <img src="{% static '/img/pres-room.jpg' %}" class="img-fluid rounded shadow" alt="Президентский номер" style="max-height: 350px; object-fit: cover;">
     </div>
-
+    <div class="col-md-6">
+        <h3 class="text-primary mb-3">Описание номера</h3>
+        <p>Роскошный президентский номер с VIP-удобствами, просторной ванной и панорамным видом на город. Этот номер идеален для самых взыскательных гостей.</p>
+        <ul class="list-unstyled">
+            <li><i class="bi bi-house-door"></i> Площадь: 50 м²</li>
+            <li><i class="bi bi-bed"></i> Кинг-сайз кровать, 2 телевизора</li>
+            <li><i class="bi bi-sun"></i> Сауна, джакузи, камин</li>
+            <li><i class="bi bi-cup-hot"></i> Мини-бар, кофемашина</li>
+            <li><i class="bi bi-wifi"></i> Бесплатный доступ в интернет, кондиционер, безопасность класса люкс</li>
+            <li><i class="bi bi-shower"></i> Санузел с ванной и отдельной душевой</li>
+        </ul>
+        <p><strong>Цена: 12000 ₽/ночь</strong></p>
+    </div>
+</div>

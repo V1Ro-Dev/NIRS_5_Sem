@@ -11,5 +11,7 @@ urlpatterns = [
     path('rooms/<str:room_type>', views.rooms, name='room'),
     path('booking/', views.booking, name='booking'),
     path('booking/<uuid:room_id>', views.book_room, name='book_room'),
-    path('contacts/', views.contacts, name='contacts')
+    path('contacts/', views.contacts, name='contacts'),
+    path('success-page/', views.success, name='success'),
+    path('spa/', views.spa, name='spa'),
 ]

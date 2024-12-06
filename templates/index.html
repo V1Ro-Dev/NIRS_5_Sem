@@ -14,22 +14,22 @@
     <section class="my-5">
         <div class="row text-center">
             <div class="col-md-4 mb-4">
-                <img src="{% static 'images/rooms.jpg' %}" class="img-fluid rounded" alt="Номера">
+                <img src="{% static 'img/rooms.jpg' %}" class="img-fluid rounded" alt="Номера">
                 <h3 class="mt-3">Номера и цены</h3>
                 <p>Удобные и стильные номера на любой вкус и бюджет, оснащенные всем необходимым.</p>
                 <a href="{% url 'rooms' %}" class="btn btn-outline-primary mt-2">Подробнее</a>
             </div>
             <div class="col-md-4 mb-4">
-                <img src="{% static 'images/booking.jpg' %}" class="img-fluid rounded" alt="Бронирование">
+                <img src="{% static 'img/booking.jpg' %}" class="img-fluid rounded" alt="Бронирование" style="height: 280px">
                 <h3 class="mt-3">Бронирование</h3>
                 <p>Простая система бронирования с гибкими условиями отмены и гарантией лучшей цены.</p>
                 <a href="{% url 'booking' %}" class="btn btn-outline-primary mt-2">Забронировать</a>
             </div>
             <div class="col-md-4 mb-4">
-                <img src="{% static 'images/spa.jpg' %}" class="img-fluid rounded" alt="Спа и Велнес">
+                <img src="{% static 'img/spa-relax.jpg' %}" class="img-fluid rounded" alt="Спа и Велнес" style="height: 280px; width: 400px">
                 <h3 class="mt-3">Спа и Велнес</h3>
                 <p>Расслабляющие процедуры, бассейн и фитнес-зал для полного восстановления.</p>
-                <a href="#" class="btn btn-outline-primary mt-2">Узнать больше</a>
+                <a href="{% url 'spa' %}" class="btn btn-outline-primary mt-2">Узнать больше</a>
             </div>
         </div>
     </section>
@@ -42,7 +42,7 @@
                 <p>Отель расположен в центре города, что позволяет вам наслаждаться всеми его достопримечательностями и быстро возвращаться в уютное место для отдыха.</p>
             </div>
             <div class="col-md-6">
-                <img src="{% static 'images/hotel_lobby.jpg' %}" class="img-fluid rounded" alt="Отель Lobby">
+                <img src="{% static 'img/hotel_lobby.jpg' %}" class="img-fluid rounded" alt="Отель Lobby">
             </div>
         </div>
     </section>

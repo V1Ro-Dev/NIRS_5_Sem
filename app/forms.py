@@ -120,11 +120,64 @@ class SettingsForm(forms.ModelForm):
 
 
 class BookingForm(forms.Form):
-    username = forms.CharField(label="Username")
-    password = forms.CharField(min_length=3, label="Password", widget=forms.PasswordInput)
+    check_in_date = forms.DateField(required=True)
+    check_out_date = forms.DateField(required=True)
+    payment_option = forms.ChoiceField(
+        choices=[
+            ('СБП', 'СПБ'),
+            ('Наличные', 'Наличные'),
+            ('Карта', 'Карта'),
+        ],
+        required=True
+    )
+    room_number = forms.CharField(max_length=12, required=True)
+    total_price = forms.IntegerField(required=True)
 
-    def clean_username(self):
-        username = self.cleaned_data.get('username')
-        if not (User.objects.filter(username=username).all().count()):
-            raise ValidationError("Wrong username!")
-        return username
+    def __init__(self, user, *args, **kwargs):
+        self.user = user
+        super().__init__(*args, **kwargs)
+
+    def save(self):
+        client = models.Clients.objects.get(user=self.user)
+        room = models.Rooms.objects.get(room_number=self.cleaned_data['room_number'])
+        booking = models.Bookings.objects.create(renter_id=client,
+                                                 room_number=room,
+                                                 payment_option=self.cleaned_data['payment_option'],
+                                                 check_in_date=self.cleaned_data['check_in_date'],
+                                                 check_out_date=self.cleaned_data['check_out_date'])
+        booking.save()
+        payment = models.Payments.objects.create(
+            booking_id=booking,
+            amount_paid=self.cleaned_data['total_price'],
+            payment_date=self.cleaned_data['check_in_date'],
+            payment_method=self.cleaned_data['payment_option']
+
+        )
+        payment.save()
+        return booking
+
+
+class FeedbackForm(forms.ModelForm):
+    class Meta:
+        model = models.Ratings
+        fields = ['rating_value', 'rating_feedback']
+
+    def __init__(self, user, *args, **kwargs):
+        self.user = user
+        super().__init__(*args, **kwargs)
+
+    def clean(self):
+        if not self.user.is_authenticated:
+            raise ValidationError('Войдите/создайте аккаунт, прежде чем писать отзыв')
+        client = models.Clients.objects.get(user=self.user)
+        if not models.Bookings.objects.filter(renter_id=client).exists():
+            raise ValidationError('Вы не можете написать отзыв, т.к еще не бронировали номер')
+        return self.cleaned_data
+
+    def save(self):
+        client = models.Clients.objects.get(user=self.user)
+        booking = models.Bookings.objects.get(renter_id=client)
+        rating = models.Ratings.objects.create(booking_id=booking,
+                                               rating_value=self.cleaned_data['rating_value'],
+                                               rating_feedback=self.cleaned_data['rating_feedback'])
+        return rating

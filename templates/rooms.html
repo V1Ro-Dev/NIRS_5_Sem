@@ -5,13 +5,12 @@
 {% block content %}
 
 <div class="container my-5">
-    <h1 style="margin: 10px" class="text-center mb-4">Номера и цены</h1>
+    <h1 class="text-center mb-4">Номера и цены</h1>
 
     <div class="row row-cols-1 g-4">
         <div class="col">
-            <div class="card h-100 shadow-sm">
-                <img src="econom-room.jpg" class="card-img-top" alt="Эконом">
-                <div class="card-body">
+            <div class="card h-100 d-flex flex-column flex-md-row">
+                <div class="card-body d-flex flex-column justify-content-between">
                     <h5 class="card-title">
                         <a href="{% url 'room' 'Эконом' %}">Эконом</a>
                     </h5>
@@ -24,13 +23,13 @@
                     </ul>
                     <p class="card-text"><strong>Цена: 3000 ₽/ночь</strong></p>
                 </div>
+                <img src="{% static 'img/econom-room.jpg' %}" class="img-fluid" alt="Эконом" style="max-width: 300px; object-fit: cover;">
             </div>
         </div>
 
         <div class="col">
-            <div class="card h-100 shadow-sm">
-                <img src="lux-room.jpg" class="card-img-top" alt="Люкс">
-                <div class="card-body">
+            <div class="card h-100 d-flex flex-column flex-md-row">
+                <div class="card-body d-flex flex-column justify-content-between">
                     <h5 class="card-title">
                         <a href="{% url 'room' 'Люкс' %}">Люкс</a>
                     </h5>
@@ -43,13 +42,13 @@
                     </ul>
                     <p class="card-text"><strong>Цена: 6000 ₽/ночь</strong></p>
                 </div>
+                <img src="{% static 'img/lux-room.jpg' %}" class="img-fluid" alt="Люкс" style="max-width: 300px; object-fit: cover;">
             </div>
         </div>
 
         <div class="col">
-            <div class="card h-100 shadow-sm">
-                <img src="presidential-room.jpg" class="card-img-top" alt="Президентский">
-                <div class="card-body">
+            <div class="card h-100 d-flex flex-column flex-md-row">
+                <div class="card-body d-flex flex-column justify-content-between">
                     <h5 class="card-title">
                         <a href="{% url 'room' 'Президентский' %}">Президентский</a>
                     </h5>
@@ -61,6 +60,7 @@
                     </ul>
                     <p class="card-text"><strong>Цена: 12000 ₽/ночь</strong></p>
                 </div>
+                <img src="{% static 'img/pres-room.jpg' %}" class="img-fluid" alt="Президентский" style="max-width: 300px; object-fit: cover;">
             </div>
         </div>
     </div>
