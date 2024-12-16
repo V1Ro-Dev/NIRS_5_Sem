@@ -4,33 +4,40 @@
 
 {% block content %}
 
-    <div class="settings-container">
-        <div class="form-container">
-            <h3 class="text-center mb-4">Настройки профиля</h3>
-            <form method="post">
-                {% csrf_token %}
-                <div class="mb-3">
-                    <label for="inputLogin" class="form-label">Логин</label>
-                    <input name="username" type="text" class="form-control" id="inputLogin" value="{{ form.username.value }}" required maxlength="20">
-                </div>
-                <div class="mb-3">
-                    <label for="inputEmail" class="form-label">Почта</label>
-                    <input name="email" type="email" class="form-control" id="inputEmail" value="{{ form.email.value }}" required maxlength="30">
-                </div>
-                <div class="mb-3">
-                    <label for="inputPhone" class="form-label">Номер телефона</label>
-                    <input  name="phone" type="tel" class="form-control" id="inputPhone" value="{{ form.phone.value }}" required maxlength="12">
-                </div>
-                <div class="mb-3">
-                    <label for="inputName" class="form-label">Имя</label>
-                    <input name="first_name" type="text" class="form-control" id="inputName" value="{{ form.first_name.value }}" required maxlength="20">
-                </div>
-                <div class="mb-3">
-                    <label for="inputSurName" class="form-label">Фамилия</label>
-                    <input name="last_name" type="text" class="form-control" id="inputSurName" value="{{ form.last_name.value }}" required maxlength="20">
-                </div>
-                <button type="submit" class="btn btn-primary w-100 mt-3">Сохранить</button>
-            </form>
+<div class="settings-container">
+    <div class="form-container">
+        <h3 class="text-center mb-4">Настройки профиля</h3>
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="inputLogin" class="form-label">Логин</label>
+                <input name="username" type="text" class="form-control" id="inputLogin" value="{{ form.username.value }}" required maxlength="20">
+            </div>
+            <div class="mb-3">
+                <label for="inputEmail" class="form-label">Почта</label>
+                <input name="email" type="email" class="form-control" id="inputEmail" value="{{ form.email.value }}" required maxlength="30">
+            </div>
+            <div class="mb-3">
+                <label for="inputPhone" class="form-label">Номер телефона</label>
+                <input name="phone" type="tel" class="form-control" id="inputPhone" value="{{ form.phone.value }}" required maxlength="12">
+            </div>
+            <div class="mb-3">
+                <label for="inputName" class="form-label">Имя</label>
+                <input name="first_name" type="text" class="form-control" id="inputName" value="{{ form.first_name.value }}" required maxlength="20">
+            </div>
+            <div class="mb-3">
+                <label for="inputSurName" class="form-label">Фамилия</label>
+                <input name="last_name" type="text" class="form-control" id="inputSurName" value="{{ form.last_name.value }}" required maxlength="20">
+            </div>
+            <button type="submit" class="btn btn-primary w-100 mt-3">Сохранить</button>
+        </form>
+    
+        {% if user.is_superuser %}
+        <div class="mt-4">
+            <a href="{% url 'top_rooms' %}" class="btn btn-secondary w-100">Посмотреть статистику</a>
         </div>
+        {% endif %}
     </div>
+</div>
+
 {% endblock %}

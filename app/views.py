@@ -3,7 +3,7 @@ from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.forms import model_to_dict
-from django.http import Http404
+from django.http import Http404, HttpResponseForbidden
 from django.shortcuts import render, redirect, get_object_or_404
 from app import forms
 from app import models
@@ -205,3 +205,11 @@ def contacts(request):
 
 def spa(request):
     return render(request, 'spa.html')
+
+
+def top_rooms(request):
+    if not request.user.is_superuser:
+        return HttpResponseForbidden("Доступ запрещен: вы не администратор.")
+    top_rooms = models.Rooms.objects.top_rooms_by_revenue()
+
+    return render(request, 'top_rooms.html', {'top_rooms': top_rooms})

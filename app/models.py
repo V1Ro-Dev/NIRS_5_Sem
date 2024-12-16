@@ -1,7 +1,8 @@
 import uuid
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models import Q, ExpressionWrapper, F
+from django.db.models import Q, ExpressionWrapper, F, Sum
+from django.db.models.functions import Coalesce
 
 
 class BookingManager(models.Manager):
@@ -30,6 +31,13 @@ class RoomManager(models.Manager):
                 output_field=models.IntegerField()
             )
         )
+
+    def top_rooms_by_revenue(self, top_n=3):
+        return self.annotate(
+            total_revenue=Coalesce(
+                Sum('bookings__payments__amount_paid'), 0
+            )
+        ).order_by('-total_revenue')[:top_n]
 
 
 class Clients(models.Model):
@@ -85,7 +93,7 @@ class Bookings(models.Model):
         ('Карта', 'Карта'),
     ]
     renter_id = models.ForeignKey(Clients, on_delete=models.PROTECT)
-    room_number = models.ForeignKey(Rooms, on_delete=models.PROTECT)
+    room_number = models.ForeignKey(Rooms, on_delete=models.PROTECT, related_name='bookings')
     check_in_date = models.DateField()
     check_out_date = models.DateField()
     payment_option = models.CharField(choices=PAYMENT_OPTIONS, max_length=8)
@@ -97,7 +105,7 @@ class Bookings(models.Model):
 
 
 class Payments(models.Model):
-    booking_id = models.ForeignKey(Bookings, on_delete=models.CASCADE)
+    booking_id = models.ForeignKey(Bookings, on_delete=models.CASCADE, related_name='payments')
     amount_paid = models.IntegerField()
     payment_date = models.DateField()
     payment_method = models.CharField()

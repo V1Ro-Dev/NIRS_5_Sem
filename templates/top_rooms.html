@@ -1,0 +1,22 @@
+{% extends 'layouts/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="container mt-5 pt-5">
+    <h1 class="text-center">Топ 3 самых продаваемых номеров</h1>
+    <div class="row">
+        {% for room in top_rooms %}
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Номер {{ room.room_number }}</h5>
+                    <p class="card-text">Тип: {{ room.type_name }}</p>
+                    <p class="card-text">Общая прибыль: {{ room.total_revenue }} ₽</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
